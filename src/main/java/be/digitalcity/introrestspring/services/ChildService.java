@@ -1,5 +1,6 @@
 package be.digitalcity.introrestspring.services;
 
+import be.digitalcity.introrestspring.model.dto.ChildDTO;
 import be.digitalcity.introrestspring.model.entities.Child;
 import be.digitalcity.introrestspring.model.entities.Tutor;
 import be.digitalcity.introrestspring.repository.ChildRepository;
@@ -30,13 +31,14 @@ public class ChildService implements CrudService<Child,Long> {
     }
 
     @Override
-    public Child insert(Child child) {
-        if(child == null) throw new RuntimeException("Erreur, child null");
+    public Child create(Child child) {
+        if(child == null) throw new IllegalArgumentException("Erreur, child null");
         return this.childRepository.save(child);
     }
 
     @Override
-    public Child save(Child child) {
+    public Child update(Child child) {
+        if(child == null) throw new IllegalArgumentException("Erreur, child null");
         return this.childRepository.save(child);
     }
 
@@ -48,6 +50,6 @@ public class ChildService implements CrudService<Child,Long> {
         if (childToDelete == null) return false;
 
         this.childRepository.delete(childToDelete);
-        return true;
+        return  true;
     }
 }

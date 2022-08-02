@@ -32,13 +32,13 @@ public class ChildController {
 
     @PostMapping("/insert")
     public ChildDTO insert(@RequestBody Child child){
-        childService.insert(child);
+        childService.create(child);
         return childMapper.toChildDTO(child);
     }
 
     @PutMapping("/update")
     public ChildDTO update(@RequestBody ChildDTO childDTO){
-        childService.save(childMapper.toChilEntity(childDTO));
+        childService.update(childMapper.toChilEntity(childDTO));
         return childDTO;
     }
 

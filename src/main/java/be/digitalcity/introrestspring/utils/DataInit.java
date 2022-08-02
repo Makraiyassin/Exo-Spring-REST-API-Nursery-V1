@@ -10,27 +10,13 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
 public class DataInit implements InitializingBean {
     private final ChildService childService;
     private final TutorService tutorService;
-
-    private List<Tutor> tutorList = Arrays.asList(
-            new Tutor("rufat","rufat","0485010203","digitalcity",null),
-            new Tutor("sebastien","sebastien","0485010203","digitalcity",null),
-            new Tutor("yassin","yassin","0485010203","digitalcity",null),
-            new Tutor("marcelo","marcelo","0485010203","digitalcity",null)
-    );
-    private List<Child> childList = Arrays.asList(
-            new Child("max","max",true,LocalDate.of(1992,1,1), null, null),
-            new Child("therence","therence",true,LocalDate.of(1992,1,1), null, null),
-            new Child("chidi","chidi",true,LocalDate.of(1992,1,1), null, null),
-            new Child("james","james",true,LocalDate.of(1992,1,1), null, null)
-
-    );
-
     public DataInit(ChildService childService, TutorService tutorService) {
         this.childService = childService;
         this.tutorService = tutorService;
@@ -38,7 +24,22 @@ public class DataInit implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        childList.forEach(childService::save);
-        tutorList.forEach(tutorService::save);
+         List<Tutor> tutorList = Arrays.asList(
+                new Tutor("rufat","rufat","0485010203","digitalcity",null),
+                new Tutor("Sarah","Sarah","0485010203","digitalcity",null),
+                new Tutor("yassin","yassin","0485010203","digitalcity",null),
+                new Tutor("marcelo","marcelo","0485010203","digitalcity",null)
+        );
+
+         List<Child> childList = Arrays.asList(
+                new Child("max","max",true,LocalDate.of(1992,1,1), List.of("arachide","pollene"),Set.of(tutorList.get(0))),
+                new Child("therence","therence",true,LocalDate.of(1992,1,1), null, Set.of(tutorList.get(0))),
+                new Child("chidi","chidi",true,LocalDate.of(1992,1,1), null, Set.of(tutorList.get(2))),
+                new Child("james","james",true,LocalDate.of(1992,1,1), null, Set.of(tutorList.get(3), tutorList.get(1)))
+
+        );
+        tutorList.forEach(tutorService::update);
+
+        childList.forEach(childService::update);
     }
 }

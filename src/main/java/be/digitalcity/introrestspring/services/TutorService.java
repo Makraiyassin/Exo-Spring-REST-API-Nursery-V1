@@ -27,12 +27,12 @@ public class TutorService implements CrudService<Tutor,Long> {
     }
 
     @Override
-    public Tutor insert(Tutor tutor) {
+    public Tutor create(Tutor tutor) {
         return null;
     }
 
     @Override
-    public Tutor save(Tutor tutor) {
+    public Tutor update(Tutor tutor) {
         return this.tutorRepository.save(tutor);
     }
 
